@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     // TODO: application logic
+    res.redirect('/success');
+});
+
+app.get('/success', (req, res) => {
     res.render('success', { title: 'Success' });
 });
 
