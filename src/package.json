@@ -1,0 +1,22 @@
+{
+  "name": "secret-santa",
+  "version": "0.1.0",
+  "description": "Play Secret Santa without going through the problematic task of picking names",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WKHAllen/SecretSanta.git"
+  },
+  "author": "Will Allen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WKHAllen/SecretSanta/issues"
+  },
+  "homepage": "https://github.com/WKHAllen/SecretSanta#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
