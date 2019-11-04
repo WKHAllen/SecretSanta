@@ -25,15 +25,15 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     // TODO: application logic
-    res.render('success', {title: 'Success'});
+    res.render('success', { title: 'Success' });
 });
 
 app.use((req, res, next) => {
-    res.status(404).render('404', {title: '404'});
+    res.status(404).render('404', { title: '404' });
 });
 
 app.use((err, req, res, next) => {
-    res.status(500).render('500', {title: '500'});
+    res.status(500).render('500', { title: '500' });
     if (err) console.log(err);
 });
 
