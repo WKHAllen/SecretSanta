@@ -2,26 +2,6 @@ var rows = 0;
 var totalRows = 0;
 const idLength = 8;
 
-const formRow = `
-    <div class="form-row" id="form-main-row-{0}">
-        <div class="form-group col-5">
-            <input type="text" class="form-control" name="name-{0}" placeholder="Name" autocomplete="off" required/>
-        </div>
-        <div class="form-group col">
-            <input type="email" class="form-control" name="email-{0}" placeholder="Email" autocomplete="off" required/>
-        </div>
-        <div class="form-group col-auto">
-            <button type="button" class="btn btn-light btn-block" onclick="removeRow({0});">&times;</button>
-        </div>
-    </div>
-`;
-
-const formMessage = `
-    <div class="alert alert-primary" role="alert">
-        {0}
-    </div>
-`;
-
 // This will become useful in the unlikely event that Google decides to fix their Chrome autocomplete problem
 function randomId(length) {
     var result = '';
@@ -40,10 +20,49 @@ function replaceAll(string, ...functions) {
 }
 
 function addRow() {
-    ++rows;
-    ++totalRows;
-    var newFormRow = replaceAll(formRow, () => rows, () => randomId(idLength));
-    document.getElementById('form-main').innerHTML += newFormRow;
+    rows++;
+    totalRows++;
+    // Indented to show the general structure
+        var newRow = document.createElement('div');
+        newRow.classList.add('form-row');
+        newRow.id = `form-main-row-${rows}`;
+            var nameDiv = document.createElement('div');
+            nameDiv.classList.add('form-group');
+            nameDiv.classList.add('col-5');
+                var nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.classList.add('form-control');
+                nameInput.name = `name-${rows}`;
+                nameInput.placeholder = 'Name';
+                nameInput.autocomplete = 'off';
+                nameInput.required = 'required';
+                nameDiv.appendChild(nameInput);
+            newRow.appendChild(nameDiv);
+            var emailDiv = document.createElement('div');
+            emailDiv.classList.add('form-group');
+            emailDiv.classList.add('col');
+                var emailInput = document.createElement('input');
+                emailInput.type = 'email';
+                emailInput.classList.add('form-control');
+                emailInput.name = `email-${rows}`;
+                emailInput.placeholder = 'Email';
+                emailInput.autocomplete = 'off';
+                emailInput.required = 'required';
+                emailDiv.appendChild(emailInput);
+            newRow.appendChild(emailDiv);
+            var xButtonDiv = document.createElement('div');
+            xButtonDiv.classList.add('form-group');
+            xButtonDiv.classList.add('col-auto');
+                var xButton = document.createElement('button');
+                xButton.type = 'button';
+                xButton.classList.add('btn');
+                xButton.classList.add('btn-light');
+                xButton.classList.add('btn-block');
+                xButton.setAttribute('onclick', `removeRow(${rows});`);
+                xButton.innerHTML = '&times;';
+                xButtonDiv.appendChild(xButton);
+            newRow.appendChild(xButtonDiv);
+        document.getElementById('form-main').appendChild(newRow);
 }
 
 function removeRow(rowNum) {
@@ -53,13 +72,18 @@ function removeRow(rowNum) {
 }
 
 function showMessage(message) {
+    var newMessage = document.createElement('div');
+    newMessage.classList.add('alert');
+    newMessage.classList.add('alert-primary');
+    newMessage.innerText = message;
     var formMessageArea = document.getElementById('form-message');
-    formMessageArea.innerHTML = replaceAll(formMessage, () => message);
+    formMessageArea.innerHTML = '';
+    formMessageArea.appendChild(newMessage);
 }
 
 function checkInputs() {
     if (totalRows >= 4 && totalRows <= 30) {
-        return false;
+        return true;
     } else {
         event.preventDefault();
         showMessage('You must have between 4 and 30 people playing.');
