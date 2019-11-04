@@ -1,9 +1,10 @@
 <h3>Instructions</h3>
 <p class="justified">Enter the names and emails of those playing into the boxes below. Click the &times; to remove a row, and the &plus; to add another row. Once you are ready to assign Secret Santas, click the Go button. Emails will be sent to each player. Each email will tell the person who they have been assigned. If players do not receive the email, please instruct them to check their spam folder.</p>
-<form method="POST">
+<form method="POST" name="input-form" onsubmit="return checkInputs();">
     <div id="form-main"></div>
     <div class="form-group">
         <button type="button" class="btn btn-light" onclick="addRow();">&plus;</button>
     </div>
+    <div id="form-message"></div>
     <button type="submit" class="btn btn-primary btn-block">Go</button>
 </form>

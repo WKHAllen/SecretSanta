@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     // TODO: application logic
+    // console.log(req.body);
     res.redirect('/success');
 });
 
