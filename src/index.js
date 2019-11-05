@@ -68,15 +68,13 @@ function parseForm(form) {
 
 function sendEmails(players, assignments) {
     const emailSubject = 'Secret Santa';
-    const emailText = `
-        Hello, {}!\n
-        Thank you for participating in Secret Santa this 2019 holliday season!\n
-        The person below is who you have been assigned to give a gift to.\n
-        Remember, this is called SECRET Santa for a reason, so please don't ruin it for everyone else by telling people who you are buying for!\n
-        If you are struggling what to buy for your person, remember that there is the google doc that has everyone's wish list on it.\n
-        You have been assigned to: {}\n
-        Good luck and have fun!
-    `;
+    const emailText = `Hello, {}!\n
+Thank you for participating in Secret Santa this 2019 holiday season!\n
+The person below is who you have been assigned to give a gift to.\n
+Remember, this is called SECRET Santa for a reason, so please don't ruin it for everyone else by telling people who you are buying for!\n
+If you are struggling what to buy for your person, remember that there is the google doc that has everyone's wish list on it.\n
+You have been assigned to: {}\n
+Good luck and have fun!\n`;
     var theEmailText;
     for (var i = 0; i < players.length; i++) {
         theEmailText = emailText.replace('{}', players[i].name).replace('{}', players[assignments[i]].name);
