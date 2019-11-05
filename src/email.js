@@ -23,7 +23,20 @@ function sendEmail(emailTo, subject, text) {
         text: text
     }
     transporter.sendMail(mailOptions, (err, info) => {
-        if (err) throw err;
+        // In case gsmtp servers encounter problems (they have before)
+        if (err) {
+            setTimeout(() => {
+                transporter.sendMail(mailOptions, (err, info) => {
+                    if (err) {
+                        setTimeout(() => {
+                            transporter.sendMail(mailOptions, (err, info) => {
+                                if (err) throw err;
+                            });
+                        }, 10 * 60 * 1000);
+                    }
+                });
+            }, 60 * 1000);
+        }
     });
 }
 
