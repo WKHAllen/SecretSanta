@@ -68,7 +68,7 @@ function addRow() {
 function removeRow(rowNum) {
     var row = document.getElementById(`form-main-row-${rowNum}`);
     row.parentNode.removeChild(row);
-    --totalRows;
+    totalRows--;
 }
 
 function showMessage(message) {

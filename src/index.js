@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
+const secretSanta = require('./secretSanta');
 
 const port = process.env.PORT || 3000;
 const staticPath = path.join(__dirname, 'static');
@@ -20,12 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(staticPath));
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { js: ['main'] });
 });
 
 app.post('/', (req, res) => {
-    // TODO: application logic
-    // console.log(req.body);
+    var players = parseForm(req.body);
+    var assignments = secretSanta.getRandomAssignments(players.length);
+    // TODO: send emails
     res.redirect('/success');
 });
 
@@ -45,3 +47,20 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
 });
+
+function parseForm(form) {
+    var players = [];
+    var formKeys = Object.keys(form);
+    var numId;
+    var emailKey;
+    for (var formKey of formKeys) {
+        if (formKey.startsWith('name-')) {
+            numId = formKey.slice(5);
+            emailKey = `email-${numId}`;
+            if (formKeys.includes(emailKey)) {
+                players.push({ name: form[formKey], email: form[emailKey] });
+            }
+        }
+    }
+    return players;
+}
