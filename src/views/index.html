@@ -5,6 +5,19 @@
     <div class="form-group">
         <button type="button" class="btn btn-light" onclick="addRow();">&plus;</button>
     </div>
+    <div class="form-group">
+        <h4>Custom email</h4>
+        <p class="justified">Below, you see how the emails will look when they are sent to each person. You may add a custom message in the text box.</p>
+        <div class="card">
+            <div class="card-header">
+                <p>Hello, Alice!</p>
+                <p>
+                    <textarea class="form-control" name="main-email-body" rows="3" placeholder="Type your message here...">{{defaultEmailBody}}</textarea>
+                </p>
+                <p>You have been assigned: Bob</p>
+            </div>
+        </div>
+    </div>
     <div id="form-message"></div>
     <button type="submit" class="btn btn-primary btn-block">Go</button>
 </form>

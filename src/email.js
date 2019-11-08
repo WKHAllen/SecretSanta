@@ -25,12 +25,17 @@ function sendEmail(emailTo, subject, text) {
     transporter.sendMail(mailOptions, (err, info) => {
         // In case gsmtp servers encounter problems (they have before)
         if (err) {
+            console.log('Error sending emails (try 1):', err);
             setTimeout(() => {
                 transporter.sendMail(mailOptions, (err, info) => {
                     if (err) {
+                        console.log('Error sending emails (try 2):', err);
                         setTimeout(() => {
                             transporter.sendMail(mailOptions, (err, info) => {
-                                if (err) throw err;
+                                if (err) {
+                                    console.log('Error sending emails (try 3)');
+                                    throw err;
+                                }
                             });
                         }, 10 * 60 * 1000);
                     }
