@@ -4,6 +4,7 @@
   "description": "Play Secret Santa without going through the problematic task of picking names",
   "main": "index.js",
   "scripts": {
+    "build": "cd src && npm run build",
     "start": "cd src && npm start",
     "postinstall": "cd src && npm install"
   },

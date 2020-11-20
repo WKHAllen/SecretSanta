@@ -6,7 +6,6 @@ const secretSanta = require('./secretSanta');
 const email = require('./email');
 
 const port = process.env.PORT || 3000;
-const staticPath = path.join(__dirname, 'static');
 
 const emailSubject = 'Secret Santa';
 const emailText = 'Hello, {}!\n\n{}\n\nYou have been assigned to: {}\n';
@@ -23,7 +22,7 @@ app.set('view engine', '.html');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(staticPath));
+app.use(express.static('static'));
 
 app.get('/', (req, res) => {
     res.render('index', { js: ['main'], defaultEmailBody: defaultEmailBody });
