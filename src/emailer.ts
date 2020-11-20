@@ -9,7 +9,7 @@ async function wait(ms: number): Promise<void> {
     });
 }
 
-export async function sendEmail(emailTo: string, subject: string, html: string, text?: string, tryNum: number = 1): Promise<void> {
+export async function sendEmail(emailTo: string, subject: string, text: string, tryNum: number = 1): Promise<void> {
     return new Promise((resolve) => {
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -25,7 +25,6 @@ export async function sendEmail(emailTo: string, subject: string, html: string, 
             },
             to: emailTo,
             subject: subject,
-            html: html,
             text: text
         };
         transporter.sendMail(mailOptions, (err, info) => {
@@ -33,7 +32,7 @@ export async function sendEmail(emailTo: string, subject: string, html: string, 
                 console.warn(`Error sending email to '${emailTo}' (try ${tryNum}):\n`, err);
                 wait(60 * 1000)
                     .then(() => {
-                        sendEmail(emailTo, subject, html, text, tryNum + 1)
+                        sendEmail(emailTo, subject, text, tryNum + 1)
                             .then(resolve);
                     });
             } else {
