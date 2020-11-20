@@ -5,7 +5,8 @@
 	  "module": "commonjs",
 	  "allowJs": true,
 	  "target": "es5",
-	  "downlevelIteration": true
+	  "downlevelIteration": true,
+	  "strict": true
 	},
 	"include": [
 	  "./**/*.ts",

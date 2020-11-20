@@ -1,33 +1,38 @@
-const nodemailer = require('nodemailer');
-const emailAddress = process.env.EMAIL_ADDRESS;
+import * as nodemailer from 'nodemailer';
+
+export const emailAddress = (process.env.EMAIL_ADDRESS as string);
 const emailPassword = process.env.EMAIL_APP_PASSWORD;
 
-function sendEmail(emailTo, subject, text) {
-    var transporter = nodemailer.createTransport({
+export function sendEmail(emailTo: string, subject: string, html: string, text?: string) {
+    const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         auth: {
             user: emailAddress,
             pass: emailPassword
         }
     });
-    var mailOptions = {
-        from: emailAddress,
+    const mailOptions = {
+        from: {
+            name: 'Secret Santa',
+            address: emailAddress
+        },
         to: emailTo,
         subject: subject,
+        html: html,
         text: text
-    }
+    };
     transporter.sendMail(mailOptions, (err, info) => {
         // In case gsmtp servers encounter problems (they have before)
         if (err) {
-            console.log('Error sending emails (try 1):', err);
+            console.warn('Error sending emails (try 1):', err);
             setTimeout(() => {
                 transporter.sendMail(mailOptions, (err, info) => {
                     if (err) {
-                        console.log('Error sending emails (try 2):', err);
+                        console.warn('Error sending emails (try 2):', err);
                         setTimeout(() => {
                             transporter.sendMail(mailOptions, (err, info) => {
                                 if (err) {
-                                    console.log('Error sending emails (try 3)');
+                                    console.warn('Error sending emails (try 3):');
                                     throw err;
                                 }
                             });
@@ -37,8 +42,4 @@ function sendEmail(emailTo, subject, text) {
             }, 60 * 1000);
         }
     });
-}
-
-module.exports = {
-    'sendEmail': sendEmail
 }

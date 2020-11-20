@@ -1,9 +1,15 @@
-function range(num) {
+interface People {
+    [name: string]: string;
+}
+
+function range(num: number): number[] {
     return [...Array(num).keys()];
 }
 
-function shuffle(array) {
-    var m = array.length, t, i;
+function shuffle(array: any[]): void {
+    let m = array.length;
+    let i: number;
+    let t: any;
     while (m) {
         i = Math.floor(Math.random() * m--);
         t = array[m];
@@ -12,31 +18,25 @@ function shuffle(array) {
     }
 }
 
-function goodAssignments(indices) {
-    for (var i = 0; i < indices.length; i++)
+export function goodAssignments(indices: number[]): boolean {
+    for (let i = 0; i < indices.length; i++)
         if (i === indices[i])
             return false;
     return true;
 }
 
-function getRandomAssignments(numPeople) {
-    var indices = range(numPeople);
+export function getRandomAssignments(numPeople: number): number[] {
+    let indices = range(numPeople);
     shuffle(indices);
     while (!goodAssignments(indices))
         shuffle(indices);
     return indices;
 }
 
-function assignPeople(names) {
-    var indices = getRandomAssignments(names.length);
-    var people = {};
-    for (var i = 0; i < names.length; i++)
+export function assignPeople(names: string[]): People {
+    const indices = getRandomAssignments(names.length);
+    let people: People = {};
+    for (let i = 0; i < names.length; i++)
         people[names[i]] = names[indices[i]];
     return people;
 }
-
-module.exports = {
-    'goodAssignments': goodAssignments,
-    'getRandomAssignments': getRandomAssignments,
-    'assignPeople': assignPeople
-};
